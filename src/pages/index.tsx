@@ -1,193 +1,155 @@
-import * as React from "react"
-import type { HeadFC, PageProps } from "gatsby"
+import * as React from "react";
+import type { HeadFC, PageProps } from "gatsby";
+import { LogoWithName } from "../components/icons/logo";
+import { Col, Container, Row } from "react-grid-system";
+import { HorizontalSpacer } from "../components/spacers";
+import { styled } from "styled-components";
+import { FindUsTitle } from "../components/icons/hitta";
+import { MediaQuery } from "../utils";
+import { AsiatiskLkpg } from "../components/icons/asiatisk";
+import { RecipeTitle } from "../components/icons/recipes";
 
 const pageStyles = {
-  color: "#232129",
-  padding: 96,
-  fontFamily: "-apple-system, Roboto, sans-serif, serif",
-}
-const headingStyles = {
-  marginTop: 0,
-  marginBottom: 64,
-  maxWidth: 320,
-}
-const headingAccentStyles = {
-  color: "#663399",
-}
-const paragraphStyles = {
-  marginBottom: 48,
-}
-const codeStyles = {
-  color: "#8A6534",
-  padding: 4,
-  backgroundColor: "#FFF4DB",
-  fontSize: "1.25rem",
-  borderRadius: 4,
-}
-const listStyles = {
-  marginBottom: 96,
-  paddingLeft: 0,
-}
-const doclistStyles = {
-  paddingLeft: 0,
-}
-const listItemStyles = {
-  fontWeight: 300,
-  fontSize: 24,
-  maxWidth: 560,
-  marginBottom: 30,
-}
+  fontFamily: "-apple-system, Inter, sans-serif, serif",
+  backgroundColor: "#fbfafa",
+};
 
-const linkStyle = {
-  color: "#8954A8",
-  fontWeight: "bold",
-  fontSize: 16,
-  verticalAlign: "5%",
-}
+const Image = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 24px;
+  box-shadow: 12px 12px 6px 0px rgba(104, 24, 108, 0.5);
+`;
 
-const docLinkStyle = {
-  ...linkStyle,
-  listStyleType: "none",
-  display: `inline-block`,
-  marginBottom: 24,
-  marginRight: 12,
-}
+const ColoredLine = styled.div`
+  background: linear-gradient(
+    270deg,
+    #2c032d 21.2%,
+    #a038a3 55.94%,
+    rgba(116, 25, 118, 0) 92.17%
+  );
+  width: 100%;
+  height: 2px;
+`;
 
-const descriptionStyle = {
-  color: "#232129",
-  fontSize: 14,
-  marginTop: 10,
-  marginBottom: 0,
-  lineHeight: 1.25,
-}
+const Subtitle = styled.h3`
+  color: #541056;
+`;
 
-const docLinks = [
-  {
-    text: "TypeScript Documentation",
-    url: "https://www.gatsbyjs.com/docs/how-to/custom-configuration/typescript/",
-    color: "#8954A8",
-  },
-  {
-    text: "GraphQL Typegen Documentation",
-    url: "https://www.gatsbyjs.com/docs/how-to/local-development/graphql-typegen/",
-    color: "#8954A8",
+const Body = styled.body``;
+
+const RecipeImage = styled.img`
+  width: 220px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 24px;
+  box-shadow: 12px 12px 6px 0px rgba(104, 24, 108, 0.5);
+
+  ${MediaQuery.XS} {
+    width: 100%;
+    margin-bottom: 2rem;
   }
-]
+`;
 
-const badgeStyle = {
-  color: "#fff",
-  backgroundColor: "#088413",
-  border: "1px solid #088413",
-  fontSize: 11,
-  fontWeight: "bold",
-  letterSpacing: 1,
-  borderRadius: 4,
-  padding: "4px 6px",
-  display: "inline-block",
-  position: "relative" as "relative",
-  top: -2,
-  marginLeft: 10,
-  lineHeight: 1,
-}
-
-const links = [
-  {
-    text: "Tutorial",
-    url: "https://www.gatsbyjs.com/docs/tutorial/getting-started/",
-    description:
-      "A great place to get started if you're new to web development. Designed to guide you through setting up your first Gatsby site.",
-    color: "#E95800",
-  },
-  {
-    text: "How to Guides",
-    url: "https://www.gatsbyjs.com/docs/how-to/",
-    description:
-      "Practical step-by-step guides to help you achieve a specific goal. Most useful when you're trying to get something done.",
-    color: "#1099A8",
-  },
-  {
-    text: "Reference Guides",
-    url: "https://www.gatsbyjs.com/docs/reference/",
-    description:
-      "Nitty-gritty technical descriptions of how Gatsby works. Most useful when you need detailed information about Gatsby's APIs.",
-    color: "#BC027F",
-  },
-  {
-    text: "Conceptual Guides",
-    url: "https://www.gatsbyjs.com/docs/conceptual/",
-    description:
-      "Big-picture explanations of higher-level Gatsby concepts. Most useful for building understanding of a particular topic.",
-    color: "#0D96F2",
-  },
-  {
-    text: "Plugin Library",
-    url: "https://www.gatsbyjs.com/plugins",
-    description:
-      "Add functionality and customize your Gatsby site or app with thousands of plugins built by our amazing developer community.",
-    color: "#8EB814",
-  },
-  {
-    text: "Build and Host",
-    url: "https://www.gatsbyjs.com/cloud",
-    badge: true,
-    description:
-      "Now you’re ready to show the world! Give your Gatsby site superpowers: Build and host on Gatsby Cloud. Get started for free!",
-    color: "#663399",
-  },
-]
+const Link = styled.a`
+  color: black;
+  text-decoration: none;
+`;
 
 const IndexPage: React.FC<PageProps> = () => {
   return (
     <main style={pageStyles}>
-      <h1 style={headingStyles}>
-        Congratulations
-        <br />
-        <span style={headingAccentStyles}>— you just made a Gatsby site! 🎉🎉🎉</span>
-      </h1>
-      <p style={paragraphStyles}>
-        Edit <code style={codeStyles}>src/pages/index.tsx</code> to see this page
-        update in real-time. 😎
-      </p>
-      <ul style={doclistStyles}>
-        {docLinks.map(doc => (
-          <li key={doc.url} style={docLinkStyle}>
-            <a
-              style={linkStyle}
-              href={`${doc.url}?utm_source=starter&utm_medium=ts-docs&utm_campaign=minimal-starter-ts`}
+      <Container>
+        <HorizontalSpacer spacing={3} />
+        <LogoWithName />
+        <HorizontalSpacer spacing={1} />
+        <ColoredLine />
+        <HorizontalSpacer spacing={3} />
+        <Row>
+          <Col lg={6} xs={12}>
+            <AsiatiskLkpg />
+            <HorizontalSpacer spacing={1} />
+            <Body>
+              Vår affärsidé innebär att vi vill erbjuda ett brett sortiment samt
+              ge tips och råd om matlagning Vi har specialiserat oss på thaimat.
+              Färska grönsaker kommer direkt från Thailand med flyg varje
+              onsdag. Ni får välja bland färsk koriander (Pak chee), salladslök,
+              basilika, chilifrukter (Prik che pha), citrongräs (Ta krai),
+              kaffirlimeblad (Ma krut), galanga (Kha) och många andra exotiska
+              kryddor, frukter och grönsaker.
+            </Body>
+            <HorizontalSpacer spacing={1} />
+            <Body>
+              {" "}
+              Vi ger gärna råd om vilka kryddor som bör kombineras för att ge
+              den rätta smaken, ett exempel är koriander som skall användas ihop
+              med salladslök i det thailändska köket.
+            </Body>
+          </Col>
+          <Col lg={6} xs={12}>
+            <Image src="https://images.pexels.com/photos/1263870/pexels-photo-1263870.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" />
+          </Col>
+        </Row>
+        <HorizontalSpacer spacing={8} />
+        <Row justify="center">
+          <FindUsTitle />
+        </Row>
+        <ColoredLine />
+        <HorizontalSpacer spacing={1} />
+        <Row justify="around">
+          <Col lg={4}>
+            <Subtitle>Adress</Subtitle>
+            <Body>Siam Shop</Body>
+            <Body>Storgatan 6</Body>
+            <Body>582 23 Linköping</Body>
+          </Col>
+          <Col lg={4}>
+            <Subtitle>Kontakt</Subtitle>
+            <Link href="mailto:hello@siamshop.se">
+              <Body>hello@siamshop.se</Body>
+            </Link>
+            <Body>013 - 12 12 13</Body>
+            <Link
+              href="https://sv-se.facebook.com/SiamShopLinkoping/"
+              target="__blank"
             >
-              {doc.text}
-            </a>
-          </li>
-        ))}
-      </ul>
-      <ul style={listStyles}>
-        {links.map(link => (
-          <li key={link.url} style={{ ...listItemStyles, color: link.color }}>
-            <span>
-              <a
-                style={linkStyle}
-                href={`${link.url}?utm_source=starter&utm_medium=start-page&utm_campaign=minimal-starter-ts`}
-              >
-                {link.text}
-              </a>
-              {link.badge && (
-                <span style={badgeStyle} aria-label="New Badge">
-                  NEW!
-                </span>
-              )}
-              <p style={descriptionStyle}>{link.description}</p>
-            </span>
-          </li>
-        ))}
-      </ul>
-      <img
-        alt="Gatsby G Logo"
-        src="data:image/svg+xml,%3Csvg width='24' height='24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 2a10 10 0 110 20 10 10 0 010-20zm0 2c-3.73 0-6.86 2.55-7.75 6L14 19.75c3.45-.89 6-4.02 6-7.75h-5.25v1.5h3.45a6.37 6.37 0 01-3.89 4.44L6.06 9.69C7 7.31 9.3 5.63 12 5.63c2.13 0 4 1.04 5.18 2.65l1.23-1.06A7.959 7.959 0 0012 4zm-8 8a8 8 0 008 8c.04 0 .09 0-8-8z' fill='%23639'/%3E%3C/svg%3E"
-      />
+              <Body>Facebook</Body>
+            </Link>
+          </Col>
+          <Col lg={4}>
+            <Subtitle>Öppettider</Subtitle>
+            <Body>mån-fre: 10.00 - 18.00</Body>
+            <Body>lör: 10.00 - 15.00</Body>
+            <Body>sön: 11.00 - 15.00</Body>
+          </Col>
+        </Row>
+        <HorizontalSpacer spacing={8} />
+        <Row justify="center">
+          <RecipeTitle />
+        </Row>
+        <ColoredLine />
+        <HorizontalSpacer spacing={2} />
+        <Row justify="between">
+          <Col lg={3}>
+            <RecipeImage src="https://images.pexels.com/photos/3297882/pexels-photo-3297882.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" />
+          </Col>
+          <Col lg={3}>
+            <RecipeImage src="https://images.pexels.com/photos/2089712/pexels-photo-2089712.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" />
+          </Col>
+          <Col lg={3}>
+            <RecipeImage src="https://images.pexels.com/photos/723198/pexels-photo-723198.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" />
+          </Col>
+          <Col lg={3}>
+            <RecipeImage src="https://images.pexels.com/photos/1234535/pexels-photo-1234535.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" />
+          </Col>
+        </Row>
+        <HorizontalSpacer spacing={12} />
+      </Container>
     </main>
-  )
-}
+  );
+};
 
-export default IndexPage
+export default IndexPage;
 
-export const Head: HeadFC = () => <title>Home Page</title>
+export const Head: HeadFC = () => <title>Siam Shop</title>;
