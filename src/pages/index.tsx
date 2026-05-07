@@ -122,6 +122,16 @@ const IndexPage: React.FC<PageProps> = () => {
             <Body>mån-fre: 10.00 - 18.00</Body>
             <Body>lör: 10.00 - 15.00</Body>
             <Body>sön: 11.00 - 15.00</Body>
+            <Link
+              href="https://sv-se.facebook.com/SiamShopLinkoping/"
+              target="__blank"
+              style={{ color: "#544e4e", fontSize: 14 }}
+            >
+              <Body>
+                Våra öppettider kan variera under helgdagar, besök gärna vår
+                Facebook för att se relevanta uppdateringar.
+              </Body>
+            </Link>
           </Col>
         </Row>
         <HorizontalSpacer spacing={8} />
