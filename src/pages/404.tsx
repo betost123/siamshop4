@@ -1,49 +1,62 @@
-import * as React from "react"
-import { Link, HeadFC, PageProps } from "gatsby"
+import * as React from "react";
+import { Link, type HeadFC, type PageProps } from "gatsby";
+import { styled } from "styled-components";
 
-const pageStyles = {
-  color: "#232129",
-  padding: "96px",
-  fontFamily: "-apple-system, Roboto, sans-serif, serif",
-}
-const headingStyles = {
-  marginTop: 0,
-  marginBottom: 64,
-  maxWidth: 320,
-}
+import { Layout } from "../components/Layout";
+import { Seo } from "../components/Seo";
+import {
+  Button,
+  ButtonGhost,
+  Container,
+  Eyebrow,
+  Lead,
+  Section,
+} from "../components/ui";
+import { ArrowIcon } from "../components/icons";
+import { shop } from "../siteData";
 
-const paragraphStyles = {
-  marginBottom: 48,
-}
-const codeStyles = {
-  color: "#8A6534",
-  padding: 4,
-  backgroundColor: "#FFF4DB",
-  fontSize: "1.25rem",
-  borderRadius: 4,
-}
+const Middle = styled(Container)`
+  max-width: 44rem;
+  text-align: center;
+`;
 
-const NotFoundPage: React.FC<PageProps> = () => {
-  return (
-    <main style={pageStyles}>
-      <h1 style={headingStyles}>Page not found</h1>
-      <p style={paragraphStyles}>
-        Sorry 😔, we couldn’t find what you were looking for.
-        <br />
-        {process.env.NODE_ENV === "development" ? (
-          <>
-            <br />
-            Try creating a page in <code style={codeStyles}>src/pages/</code>.
-            <br />
-          </>
-        ) : null}
-        <br />
-        <Link to="/">Go home</Link>.
-      </p>
-    </main>
-  )
-}
+const Actions = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 2.25rem;
+`;
 
-export default NotFoundPage
+const NotFoundPage: React.FC<PageProps> = () => (
+  <Layout>
+    <Section>
+      <Middle>
+        <Eyebrow>404</Eyebrow>
+        <h1>Sidan kunde inte hittas</h1>
+        <Lead style={{ marginTop: "1.25rem" }}>
+          Sidan du letade efter finns inte längre – eller så blev det ett stavfel
+          i adressen. Välkommen tillbaka till startsidan, eller slå oss en
+          signal så hjälper vi dig.
+        </Lead>
+        <Actions>
+          <Button as={Link} to="/">
+            Till startsidan
+            <ArrowIcon size={16} />
+          </Button>
+          <ButtonGhost href={shop.phone.href}>{shop.phone.display}</ButtonGhost>
+        </Actions>
+      </Middle>
+    </Section>
+  </Layout>
+);
 
-export const Head: HeadFC = () => <title>Not found</title>
+export default NotFoundPage;
+
+export const Head: HeadFC = () => (
+  <Seo
+    title="Sidan kunde inte hittas"
+    description="Sidan du letade efter finns inte."
+    pathname="/404/"
+  />
+);
